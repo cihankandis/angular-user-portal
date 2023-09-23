@@ -1,27 +1,45 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent]
-  }));
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [AppComponent],
+      imports: [MatToolbarModule, MatCardModule, RouterTestingModule],
+    });
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+  });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'angular-user-portal'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-user-portal');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  it('should display the title in the toolbar', () => {
+    component.title = 'Angular User Portal';
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('angular-user-portal app is running!');
+
+    const toolbar = fixture.debugElement.query(By.css('mat-toolbar'));
+    const titleElement = toolbar.query(By.css('span'));
+
+    expect(titleElement.nativeElement.textContent).toContain(
+      'Angular User Portal',
+    );
+  });
+
+  it('should have a mat-card in the main content', () => {
+    fixture.detectChanges();
+
+    const matCard = fixture.debugElement.query(By.css('mat-card'));
+
+    expect(matCard).toBeTruthy();
   });
 });
