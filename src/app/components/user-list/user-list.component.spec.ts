@@ -6,6 +6,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 jest.useFakeTimers();
 
@@ -18,6 +19,7 @@ describe('UserListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [UserListComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [UserService],
       imports: [HttpClientTestingModule],
     }).compileComponents();

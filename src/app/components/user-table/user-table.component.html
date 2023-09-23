@@ -1,0 +1,40 @@
+<mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.id }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="avatar">
+      <mat-header-cell *matHeaderCellDef>Avatar</mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <img [src]="user.avatar" alt="User Avatar" width="50">
+      </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="first_name">
+      <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.first_name }}</mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="last_name">
+      <mat-header-cell *matHeaderCellDef>Last Name</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.last_name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.email }}</mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="toggleFavorite">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <button mat-icon-button color="warn" matTooltip="Toggle favorite" matTooltipPosition="right" (click)="onToggleFavorite(user)" aria-label="Remove from Favorites">
+            <mat-icon>favorite</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" class="user-row"></mat-row>
+  </mat-table>
