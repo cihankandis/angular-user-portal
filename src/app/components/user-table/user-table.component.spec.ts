@@ -43,17 +43,15 @@ describe('UserTableComponent (template)', () => {
     fixture.detectChanges();
 
     const tableRows = fixture.debugElement.queryAll(By.css('.user-row'));
-    expect(tableRows.length).toBe(2); // Check that two rows are rendered
+    expect(tableRows.length).toBe(2);
 
-    // Check the content of the first row
     const firstRowCells = tableRows[0].queryAll(By.css('mat-cell'));
-    expect(firstRowCells[0].nativeElement.textContent).toContain('1'); // Check ID
-    expect(firstRowCells[2].nativeElement.textContent).toContain('User'); // Check First Name
+    expect(firstRowCells[0].nativeElement.textContent).toContain('1');
+    expect(firstRowCells[2].nativeElement.textContent).toContain('User');
 
-    // Check the content of the second row
     const secondRowCells = tableRows[1].queryAll(By.css('mat-cell'));
-    expect(secondRowCells[0].nativeElement.textContent).toContain('2'); // Check ID
-    expect(secondRowCells[2].nativeElement.textContent).toContain('User'); // Check First Name
+    expect(secondRowCells[0].nativeElement.textContent).toContain('2');
+    expect(secondRowCells[2].nativeElement.textContent).toContain('User');
   });
 
   it('should emit toggleFavorite event when a button is clicked', () => {

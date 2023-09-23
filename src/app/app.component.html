@@ -2,7 +2,7 @@
   <span>{{ title }}</span>
   <span class="spacer"></span>
   <a mat-button routerLink="/user-list">User List</a>
-  <a mat-button routerLink="/user-favorites">
+  <a mat-button matBadge="{{favoritesCount}}" matBadgeColor="warn" routerLink="/user-favorites">
     Favorites
   </a>
 </mat-toolbar>
