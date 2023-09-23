@@ -4,6 +4,7 @@ import { MatTableModule } from '@angular/material/table';
 import { User } from 'src/app/models/user.model';
 import { By } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FavoriteService } from '../../services/favorite.service';
 
 describe('UserTableComponent (template)', () => {
   let component: UserTableComponent;
@@ -14,6 +15,7 @@ describe('UserTableComponent (template)', () => {
       declarations: [UserTableComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [MatTableModule],
+      providers: [FavoriteService],
     });
     fixture = TestBed.createComponent(UserTableComponent);
     component = fixture.componentInstance;

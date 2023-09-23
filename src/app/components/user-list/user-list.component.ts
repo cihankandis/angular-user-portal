@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { MatTableDataSource } from '@angular/material/table';
+import { FavoriteService } from '../../services/favorite.service';
 
 @Component({
   selector: 'app-user-list',
@@ -24,7 +25,10 @@ export class UserListComponent implements OnInit, OnDestroy {
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
   fetchingData = false;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private favoriteService: FavoriteService,
+  ) {}
 
   ngOnInit() {
     this.fetchingData = true;
@@ -44,11 +48,15 @@ export class UserListComponent implements OnInit, OnDestroy {
     }, 5000);
   }
 
-  ngOnDestroy() {
-    clearInterval(this.timer);
+  toggleFavorite(user: User): void {
+    if (this.favoriteService.isFavorite(user)) {
+      this.favoriteService.removeFavorite(user);
+    } else {
+      this.favoriteService.addFavorite(user);
+    }
   }
 
-  toggleFavorite() {
-    // TODO: implement this
+  ngOnDestroy() {
+    clearInterval(this.timer);
   }
 }

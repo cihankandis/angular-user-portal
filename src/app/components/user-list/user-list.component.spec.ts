@@ -7,6 +7,8 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FavoriteService } from '../../services/favorite.service';
+import { User } from 'src/app/models/user.model';
 
 jest.useFakeTimers();
 
@@ -14,19 +16,21 @@ describe('UserListComponent', () => {
   let component: UserListComponent;
   let fixture: ComponentFixture<UserListComponent>;
   let userService: UserService;
+  let favoriteService: FavoriteService;
   let httpTestingController: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [UserListComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [UserService],
+      providers: [UserService, FavoriteService],
       imports: [HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserListComponent);
     component = fixture.componentInstance;
     userService = TestBed.inject(UserService);
+    favoriteService = TestBed.inject(FavoriteService);
     httpTestingController = TestBed.inject(HttpTestingController);
 
     jest.spyOn(userService, 'fetchRandomUsers').mockReturnValue(
@@ -109,7 +113,33 @@ describe('UserListComponent', () => {
     expect(component.timer).toBeDefined();
   });
 
-  it('should implement toggleFavorite (TODO)', () => {
-    // TODO: write tests for toggleFavorite
+  it('should toggle user favorite status', () => {
+    const user: User = {
+      id: 1,
+      email: 'john@example.com',
+      first_name: 'John',
+      last_name: 'Doe',
+      avatar: 'avatar-url',
+    };
+
+    const addFavoriteSpy = jest.spyOn(favoriteService, 'addFavorite');
+    const removeFavoriteSpy = jest.spyOn(favoriteService, 'removeFavorite');
+    const isFavoriteSpy = jest.spyOn(favoriteService, 'isFavorite');
+
+    isFavoriteSpy.mockReturnValue(false);
+    component.toggleFavorite(user);
+    expect(addFavoriteSpy).toHaveBeenCalledWith(user);
+    addFavoriteSpy.mockClear();
+
+    isFavoriteSpy.mockReturnValue(true);
+    component.toggleFavorite(user);
+    expect(removeFavoriteSpy).toHaveBeenCalledWith(user);
+    removeFavoriteSpy.mockClear();
+
+    isFavoriteSpy.mockReturnValue(false);
+    component.toggleFavorite(user);
+    expect(addFavoriteSpy).toHaveBeenCalledWith(user);
+
+    jest.restoreAllMocks();
   });
 });

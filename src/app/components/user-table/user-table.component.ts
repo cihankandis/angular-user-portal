@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { User } from 'src/app/models/user.model';
+import { FavoriteService } from '../../services/favorite.service';
 
 @Component({
   selector: 'app-user-table',
@@ -21,6 +22,8 @@ export class UserTableComponent {
     'email',
     'toggleFavorite',
   ];
+
+  constructor(public favoriteService: FavoriteService) {}
 
   onToggleFavorite(user: User): void {
     this.toggleFavorite.emit(user);
