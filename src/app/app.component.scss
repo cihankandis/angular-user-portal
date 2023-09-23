@@ -1,0 +1,32 @@
+mat-toolbar {
+    background-color: #2196F3; /* Example background color */
+    color: #fff; /* Example text color */
+  }
+  
+  /* Style the navigation links in the header */
+  mat-toolbar a {
+    color: #fff; /* Example text color */
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+  }
+  
+  /* Add spacing between navigation links in the header */
+  mat-toolbar a + a {
+    margin-left: 20px;
+  }
+  
+  /* Style the main content area */
+  main {
+    padding: 20px;
+  }
+  
+  /* Style the mat-card component for the main content */
+  mat-card {
+    padding: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Example shadow */
+  }
+  
+  .spacer {
+    flex: 1; /* This allows the spacer to take up all available space */
+  }
