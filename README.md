@@ -1,27 +1,49 @@
-# AngularUserPortal
+# Angular User Portal
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
+Angular User Portal is a web application that allows users to manage and display a list of random users retrieved from a provided API. Users can also add and remove their favorite users, with a maximum of 10 favorites. The application includes the following features:
 
-## Development server
+- Fetch 10 random users from the provided API on page load.
+- Display the fetched users in a list.
+- Toggle a timer to automatically fetch a new user every 5 seconds. The list of users is limited to a maximum of 10 items, with the oldest user being removed when the maximum is reached.
+- Add and remove users as favorites, with a maximum of 10 favorites.
+- View the list of favorite users on a separate page.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Table of Contents
 
-## Code scaffolding
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Usage](#usage)
+- [Features](#features)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Getting Started
 
-## Build
+- **Node.js**: Make sure you have Node.js installed. You can download it from [nodejs.org](https://nodejs.org/).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Installation
 
-## Running unit tests
+Follow these steps to install and run the application on your local machine:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/angular-user-portal.git
+   cd angular-user-portal
+   ```
+2. Install project dependencies using npm:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   ng serve
+   ```
+   The application should now be running locally. You can access it in your web browser at http://localhost:4200/.
 
-## Running end-to-end tests
+## Features
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. **Random User Fetch**: On page load, the application fetches 10 random users from the provided API and displays them in a list.
 
-## Further help
+2. **Auto-fetch Timer**: Users can toggle a timer that automatically fetches a new random user every 5 seconds. The list of users is limited to a maximum of 10 items. When the maximum is reached, the oldest user is automatically removed from the list.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+3. **Favorite Users**: Users have the ability to add and remove users as favorites. Each user row in the list has an icon button to set as favorite or remove. Users can have a maximum of 10 favorite users.
+
+4. **Separate Favorites Page**: A separate page is available for users to view their list of favorite users. This page provides easy access to the users they have marked as favorites.
