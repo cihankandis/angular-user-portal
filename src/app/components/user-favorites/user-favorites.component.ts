@@ -10,6 +10,7 @@ import { FavoriteService } from '../../services/favorite.service';
 })
 export class UserFavoritesComponent implements OnInit {
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
+  noFavoriteMessage = 'There is no favorite user.';
 
   constructor(public favoriteService: FavoriteService) {}
 

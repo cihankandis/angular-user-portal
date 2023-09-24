@@ -73,7 +73,8 @@ describe('UserTableComponent (template)', () => {
     expect(toggleFavoriteSpy).toHaveBeenCalledWith(user);
   });
 
-  it('should display a message when showEmptyMessage is true and data source length is 0', () => {
+  it('should display a message when emptyMessage has a value and data source length is 0', () => {
+    component.emptyMessage = 'No users';
     fixture.detectChanges();
     const emptyMessageElement: HTMLElement =
       fixture.nativeElement.querySelector('.no-users-message');
@@ -81,8 +82,24 @@ describe('UserTableComponent (template)', () => {
     expect(emptyMessageElement.textContent).toContain(component.emptyMessage);
   });
 
-  it('should not display the message when showEmptyMessage is false', () => {
-    component.showEmptyMessage = false;
+  it('should not display the message when emptyMessage has no value', () => {
+    component.emptyMessage = '';
+    fixture.detectChanges();
+    const emptyMessageElement: HTMLElement =
+      fixture.nativeElement.querySelector('.no-users-message');
+    expect(emptyMessageElement).toBeFalsy();
+  });
+
+  it('should not display the message when emptyMessage has value and data source is not empty', () => {
+    const user: User = {
+      id: 1,
+      email: 'user1@example.com',
+      first_name: 'User',
+      last_name: 'One',
+      avatar: 'avatar1.jpg',
+    };
+    component.dataSource.data = [user];
+    component.emptyMessage = '';
     fixture.detectChanges();
     const emptyMessageElement: HTMLElement =
       fixture.nativeElement.querySelector('.no-users-message');

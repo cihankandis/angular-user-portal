@@ -11,8 +11,7 @@ import { FavoriteService } from '../../services/favorite.service';
 export class UserTableComponent {
   @Input() dataSource: MatTableDataSource<User> =
     new MatTableDataSource<User>();
-  @Input() showEmptyMessage = true;
-  @Input() emptyMessage = 'There are no users to display';
+  @Input() emptyMessage = '';
   @Output() toggleFavorite = new EventEmitter<User>();
 
   displayedColumns: string[] = [

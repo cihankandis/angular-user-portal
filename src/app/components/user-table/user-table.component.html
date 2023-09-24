@@ -39,6 +39,6 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;" class="user-row"></mat-row>
   </mat-table>
 
-  <div *ngIf="showEmptyMessage && dataSource.data?.length === 0" class="no-users-message">
+  <div *ngIf="emptyMessage && dataSource.data?.length === 0" class="no-users-message">
    {{ emptyMessage }}
   </div>

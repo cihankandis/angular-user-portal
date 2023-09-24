@@ -15,7 +15,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   timer: number | undefined;
 
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
-  fetchingData = false;
 
   constructor(
     private userService: UserService,
@@ -23,12 +22,10 @@ export class UserListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.fetchingData = true;
     this.userService
       .fetchRandomUsers(this.maxUsersCount)
       .subscribe((users: User[]) => {
         this.dataSource.data = users.slice(0, this.maxUsersCount);
-        this.fetchingData = false;
       });
 
     this.timer = window.setInterval(() => {

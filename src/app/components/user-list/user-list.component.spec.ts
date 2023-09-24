@@ -72,20 +72,13 @@ describe('UserListComponent', () => {
   });
 
   it('should fetch random users and populate the data source', () => {
-    fixture.detectChanges();
-    expect(component.fetchingData).toBe(false);
-
     component.ngOnInit();
     fixture.detectChanges();
 
-    expect(component.fetchingData).toBe(false);
     expect(component.dataSource.data.length).toBe(2);
   });
 
   it('should fetch a random user at regular intervals', () => {
-    fixture.detectChanges();
-    expect(component.fetchingData).toBe(false);
-
     component.ngOnInit();
     fixture.detectChanges();
 
@@ -124,13 +117,9 @@ describe('UserListComponent', () => {
   });
 
   it('should handle ngOnDestroy', () => {
-    fixture.detectChanges();
-    expect(component.fetchingData).toBe(false);
-
     component.ngOnInit();
     fixture.detectChanges();
 
-    expect(component.fetchingData).toBe(false);
     expect(component.timer).toBeDefined();
   });
 
