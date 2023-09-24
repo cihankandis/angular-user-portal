@@ -1,3 +1,5 @@
+<mat-slide-toggle [checked]="timerEnabled" (change)="toggleTimer($event)">Fetch random user every {{randomIntervalSeconds}} seconds</mat-slide-toggle>
+
 <app-user-table [dataSource]="dataSource" (toggleFavorite)="toggleFavorite($event)">
 
 </app-user-table>

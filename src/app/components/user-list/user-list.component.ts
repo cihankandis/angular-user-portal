@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { FavoriteService } from '../../services/favorite.service';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-user-list',
@@ -12,6 +13,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   private readonly maxUsersCount = 10;
   users: User[] = [];
   timer: number | undefined;
+  timerEnabled = false;
+  randomIntervalSeconds = 5;
 
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
 
@@ -26,16 +29,23 @@ export class UserListComponent implements OnInit, OnDestroy {
       .subscribe((users: User[]) => {
         this.dataSource.data = users.slice(0, this.maxUsersCount);
       });
+  }
 
-    this.timer = window.setInterval(() => {
-      this.userService.fetchRandomUser().subscribe((user) => {
-        if (this.dataSource.data.length >= this.maxUsersCount) {
-          this.dataSource.data.pop();
-        }
-        this.dataSource.data.unshift(user);
-        this.dataSource._updateChangeSubscription();
-      });
-    }, 5000);
+  toggleTimer(toggleChange: MatSlideToggleChange) {
+    this.timerEnabled = toggleChange.checked;
+    if (this.timerEnabled) {
+      this.timer = window.setInterval(() => {
+        this.userService.fetchRandomUser().subscribe((user) => {
+          if (this.dataSource.data.length >= this.maxUsersCount) {
+            this.dataSource.data.pop();
+          }
+          this.dataSource.data.unshift(user);
+          this.dataSource._updateChangeSubscription();
+        });
+      }, this.randomIntervalSeconds * 1000);
+    } else {
+      clearInterval(this.timer);
+    }
   }
 
   toggleFavorite(user: User): void {

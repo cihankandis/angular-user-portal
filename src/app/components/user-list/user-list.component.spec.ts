@@ -9,6 +9,10 @@ import {
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FavoriteService } from '../../services/favorite.service';
 import { User } from 'src/app/models/user.model';
+import {
+  MatSlideToggle,
+  MatSlideToggleChange,
+} from '@angular/material/slide-toggle';
 
 jest.useFakeTimers();
 
@@ -80,6 +84,14 @@ describe('UserListComponent', () => {
 
   it('should fetch a random user at regular intervals', () => {
     component.ngOnInit();
+    const toggleChange: MatSlideToggleChange = {
+      source: {} as MatSlideToggle,
+      checked: true,
+    };
+
+    expect(component.timer).toBeUndefined();
+
+    component.toggleTimer(toggleChange);
     fixture.detectChanges();
 
     expect(component.dataSource.data.length).toBe(2);
@@ -87,15 +99,36 @@ describe('UserListComponent', () => {
     jest.advanceTimersByTime(5000);
     fixture.detectChanges();
 
-    expect(component.dataSource.data.length).toBe(4);
+    expect(component.dataSource.data.length).toBe(3);
 
     jest.advanceTimersByTime(5000);
     fixture.detectChanges();
 
-    expect(component.dataSource.data.length).toBe(6);
+    expect(component.dataSource.data.length).toBe(4);
+  });
+
+  it('should toggle the timer on when checked', () => {
+    const toggleChange: MatSlideToggleChange = {
+      source: {} as MatSlideToggle,
+      checked: true,
+    };
+
+    expect(component.timer).toBeUndefined();
+
+    component.toggleTimer(toggleChange);
+
+    expect(component.timer).toBeDefined();
+    jest.advanceTimersByTime(5000);
+    expect(userService.fetchRandomUser).toHaveBeenCalled();
   });
 
   it('should remove data from dataSource when length exceeds 10', () => {
+    const toggleChange: MatSlideToggleChange = {
+      source: {} as MatSlideToggle,
+      checked: true,
+    };
+    component.toggleTimer(toggleChange);
+
     const mockUsers: User[] = Array.from({ length: 11 }, (_, index) => ({
       id: index + 1,
       email: `user${index + 1}@example.com`,
@@ -120,7 +153,7 @@ describe('UserListComponent', () => {
     component.ngOnInit();
     fixture.detectChanges();
 
-    expect(component.timer).toBeDefined();
+    expect(component.timer).toBeUndefined();
   });
 
   it('should toggle user favorite status', () => {
