@@ -72,4 +72,20 @@ describe('UserTableComponent (template)', () => {
 
     expect(toggleFavoriteSpy).toHaveBeenCalledWith(user);
   });
+
+  it('should display a message when showEmptyMessage is true and data source length is 0', () => {
+    fixture.detectChanges();
+    const emptyMessageElement: HTMLElement =
+      fixture.nativeElement.querySelector('.no-users-message');
+    expect(emptyMessageElement).toBeTruthy();
+    expect(emptyMessageElement.textContent).toContain(component.emptyMessage);
+  });
+
+  it('should not display the message when showEmptyMessage is false', () => {
+    component.showEmptyMessage = false;
+    fixture.detectChanges();
+    const emptyMessageElement: HTMLElement =
+      fixture.nativeElement.querySelector('.no-users-message');
+    expect(emptyMessageElement).toBeFalsy();
+  });
 });
