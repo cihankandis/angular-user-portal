@@ -9,14 +9,6 @@ import { FavoriteService } from '../../services/favorite.service';
   styleUrls: ['./user-favorites.component.scss'],
 })
 export class UserFavoritesComponent implements OnInit {
-  displayedColumns: string[] = [
-    'id',
-    'email',
-    'first_name',
-    'last_name',
-    'avatar',
-    'removeFavorite',
-  ];
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
 
   constructor(public favoriteService: FavoriteService) {}

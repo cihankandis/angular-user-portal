@@ -102,6 +102,27 @@ describe('UserListComponent', () => {
     expect(component.dataSource.data.length).toBe(6);
   });
 
+  it('should remove data from dataSource when length exceeds 10', () => {
+    const mockUsers: User[] = Array.from({ length: 11 }, (_, index) => ({
+      id: index + 1,
+      email: `user${index + 1}@example.com`,
+      first_name: `User${index + 1}`,
+      last_name: `Last${index + 1}`,
+      avatar: `avatar${index + 1}.jpg`,
+    }));
+
+    jest.spyOn(userService, 'fetchRandomUsers').mockReturnValue(of(mockUsers));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(component.dataSource.data.length).toBe(10);
+
+    jest.advanceTimersByTime(5000);
+    fixture.detectChanges();
+
+    expect(component.dataSource.data.length).toBe(10);
+  });
+
   it('should handle ngOnDestroy', () => {
     fixture.detectChanges();
     expect(component.fetchingData).toBe(false);

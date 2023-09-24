@@ -10,17 +10,9 @@ import { FavoriteService } from '../../services/favorite.service';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit, OnDestroy {
+  private readonly maxUsersCount = 10;
   users: User[] = [];
   timer: number | undefined;
-
-  displayedColumns: string[] = [
-    'id',
-    'email',
-    'first_name',
-    'last_name',
-    'avatar',
-    'addFavorite',
-  ];
 
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
   fetchingData = false;
@@ -32,14 +24,16 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fetchingData = true;
-    this.userService.fetchRandomUsers(10).subscribe((users: User[]) => {
-      this.dataSource.data = users;
-      this.fetchingData = false;
-    });
+    this.userService
+      .fetchRandomUsers(this.maxUsersCount)
+      .subscribe((users: User[]) => {
+        this.dataSource.data = users.slice(0, this.maxUsersCount);
+        this.fetchingData = false;
+      });
 
     this.timer = window.setInterval(() => {
       this.userService.fetchRandomUser().subscribe((user) => {
-        if (this.dataSource.data.length >= 10) {
+        if (this.dataSource.data.length >= this.maxUsersCount) {
           this.dataSource.data.pop();
         }
         this.dataSource.data.unshift(user);
