@@ -14,6 +14,7 @@ Angular User Portal is a web application that allows users to manage and display
   - [Installation](#installation)
   - [Usage](#usage)
 - [Features](#features)
+- [Unit test](#test)
 
 ## Getting Started
 
@@ -47,3 +48,11 @@ Follow these steps to install and run the application on your local machine:
 3. **Favorite Users**: Users have the ability to add and remove users as favorites. Each user row in the list has an icon button to set as favorite or remove. Users can have a maximum of 10 favorite users.
 
 4. **Separate Favorites Page**: A separate page is available for users to view their list of favorite users. This page provides easy access to the users they have marked as favorites.
+
+## Features
+
+To run the unit tests:
+
+```bash
+npm run test
+```
