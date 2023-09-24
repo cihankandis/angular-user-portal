@@ -6,7 +6,6 @@ import { FavoriteService } from '../../services/favorite.service';
 @Component({
   selector: 'app-user-favorites',
   templateUrl: './user-favorites.component.html',
-  styleUrls: ['./user-favorites.component.scss'],
 })
 export class UserFavoritesComponent implements OnInit {
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
